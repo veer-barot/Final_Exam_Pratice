@@ -21,20 +21,22 @@ import utilities.DBUtils;
 /**
  * The Logic Controller for the Books
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
 @ApplicationScoped
 public class BookController {
 
     // Used to tie Authors to Books
     AuthorController authors = new AuthorController();
-
+    
+    //Connetion to the Book List
     List<Book> books = new ArrayList<>();
 
     /**
      * A Constructor to build the basic controller and load data
      */
     public BookController() {
+         // Refresh the List of Books from the Database
         refreshFromDB();
     }
 
@@ -42,6 +44,7 @@ public class BookController {
      * A method for refreshing the list of Authors from the Database
      */
     private void refreshFromDB() {
+        // refreshFromDB() Method to Refresh the List of Books from the Database
         try {
             Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
@@ -67,12 +70,14 @@ public class BookController {
      * @return was the database change successful
      */
     private boolean persistToDB(Book b) {
-        /* TODO:
+        /*
          *  - Determine if the change is an INSERT or an UPDATE by checking the ID
          *  - Build the appropriate SQL statement and execute it
          *  - If it was an INSERT, make sure to retrieve the generated key to update the List
          *  - If all the above are successful, return true, otherwise, return false.
          */
+        
+        // persitToDB() Method to Update or Insert records into the Database
         int results = 0;
         try {
             String sql = "";
@@ -110,7 +115,7 @@ public class BookController {
      * @return was the database change successful
      */
     private boolean removeFromDB(int id) {
-        // TODO: Remove the identified Book from the Database
+        // removeFromDB(id) Method to Remove the identified Book from the Database
         try {
             String sql ="";
             Connection conn = DBUtils.getConnection();
@@ -132,7 +137,7 @@ public class BookController {
      * @return the JSON array of all Books
      */
     public JsonArray getAll() {
-        // TODO: Create a JSON Array that contains all of the books
+        // getAll() Method to Create a JSON Array that contains all of the books
         JsonArrayBuilder arr = Json.createArrayBuilder();
         for (Book b : books) {
             arr.add(b.toJson());
@@ -147,7 +152,7 @@ public class BookController {
      * @return the Book object
      */
     public Book getById(int id) {
-        // TODO: Retrieve a Book object from the list based on the ID
+        // getById(id) Method to Retrieve a Book object from the list based on the ID
         for (Book b : books) {
             if (b.getId() == id)
                 return b;
@@ -162,6 +167,7 @@ public class BookController {
      * @return the JSON object of the Book with its added ID
      */
     public JsonObject add(JsonObject json) {
+        // add(json) Method to Add the Book to the List of Books AND the Database
         Book b = new Book(json);
         persistToDB(b);
         books.add(b);
@@ -176,6 +182,7 @@ public class BookController {
      * @return the JSON object of the stored Book after the change
      */
     public JsonObject edit(int id, JsonObject json) {
+        // edit(id) Method to Change the existing Author details from the database to different Book
         Book b = getById(id);
         if (b != null) {
             b.setTitle(json.getString("title"));
@@ -195,7 +202,7 @@ public class BookController {
      * @return whether or not the removal was successful
      */
     public boolean delete(int id) {
-        // TODO: Remove the Book from the database and the list, and report on success
+        // delte(id) Method to Remove the Book from the database and the list, and report on success
         Book b = getById(id);
         books.remove(b);
         return removeFromDB(id);

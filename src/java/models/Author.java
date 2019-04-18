@@ -7,29 +7,34 @@ import javax.json.JsonObject;
 
 /**
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
 public class Author {
-
+    
+    //Input for the Author
     private int id;
     private String name;
     private String nationality;
 
+    //Empty Contructor
     public Author() {
     }
 
+    //Author Constructor taking ID, NAME and NATIONALITY
     public Author(int id, String name, String nationality) {
         this.id = id;
         this.name = name;
         this.nationality = nationality;
     }
     
+    //Author Constructor taking JSON Object
     public Author(JsonObject json) {
         this.id = json.getInt("id",0);
         this.name = json.getString("name", "");
         this.nationality = json.getString("nationality", "");
     }
-
+    
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -54,6 +59,7 @@ public class Author {
         this.nationality = nationality;
     }
     
+    //toJson() method producing JSON Object
     public JsonObject toJson() {
         return Json.createObjectBuilder()
                 .add("id", id)

@@ -21,18 +21,19 @@ import utilities.DBUtils;
 /**
  * The Logic Controller for the Authors
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
 @ApplicationScoped
 public class AuthorController {
-
+    
+    //Connetion to the Author List
     List<Author> authors = new ArrayList<>();
 
     /**
      * A Constructor to build the basic controller and load data
      */
     public AuthorController() {
-        // TODO: Refresh the List of Authors from the Database
+        // Refresh the List of Authors from the Database
         refreshFromDB();
     }
 
@@ -40,7 +41,7 @@ public class AuthorController {
      * A method for refreshing the list of Authors from the Database
      */
     private void refreshFromDB() {
-        // TODO: Refresh the List of Authors from the Database
+        // refreshFromDB() Method to Refresh the List of Authors from the Database
         try {
             Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
@@ -65,6 +66,7 @@ public class AuthorController {
      * @return was the database change successful
      */
     private boolean persistToDB(Author a) {
+        // persitToDB() Method to Update or Insert records into the Database
         int results = 0;
         try {
             String sql = "";
@@ -101,7 +103,7 @@ public class AuthorController {
      * @return was the database change successful
      */
     private boolean removeFromDB(int id) {
-        // TODO: Remove the identified Author from the Database
+        // removeFromDB(id) Method to Remove the identified Author from the Database
         try {
             String sql ="";
             Connection conn = DBUtils.getConnection();
@@ -137,7 +139,7 @@ public class AuthorController {
      * @return the Author object
      */
     public Author getById(int id) {
-        // TODO: Retrieve an Author object from the list based on the ID
+        // getById(int id) Method to Retrieve an Author object from the list based on the ID
         for (Author a : authors) {
             if (a.getId() == id)
                 return a;
@@ -152,7 +154,7 @@ public class AuthorController {
      * @return the JSON object of the author with its new ID
      */
     public JsonObject add(JsonObject json) {
-        // TODO: Add the Author to the List of Authors AND the Database
+        // add(json) Method to Add the Author to the List of Authors AND the Database
         Author a = new Author(json);
         persistToDB(a);
         authors.add(a);
@@ -168,6 +170,7 @@ public class AuthorController {
      * @return the JSON object of the stored Author after the change
      */
     public JsonObject edit(int id, JsonObject json) {
+        // edit(id) Method to Change the existing Author details from the database to different Author
         Author a = getById(id);
         if (a != null) {
             a.setName(json.getString("name"));
@@ -187,7 +190,7 @@ public class AuthorController {
      * @return whether or not the removal was successful
      */
     public boolean delete(int id) {
-        // TODO: Remove the Author from the database and the list, and report on success
+        // delete(id) Method to Remove the Author from the database and the list, and report on success
         Author a = getById(id);
         authors.remove(a);
         refreshFromDB();

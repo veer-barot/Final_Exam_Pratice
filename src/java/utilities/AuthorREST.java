@@ -18,12 +18,15 @@ import models.Author;
 /**
  * The RESTful Service to Access Authors
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
+
+//Corret context/scope
 @Path("/authors")
 @Stateless
 public class AuthorREST {
-
+    
+    //Connetion to the Author List
     @Inject
     AuthorController authors;
 
@@ -32,6 +35,8 @@ public class AuthorREST {
      *
      * @return the HTTP Response
      */
+    
+    // Build an Enpoint to getAll() via the GET method
     @GET
     @Produces("application/json")
     public Response getAll() {
@@ -44,6 +49,8 @@ public class AuthorREST {
      * @param id the Author's ID
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to getByID() via the GET method and Conneting to Path
     @GET
     @Path("{id}")
     @Produces("application/json")
@@ -56,21 +63,23 @@ public class AuthorREST {
         }
     }
 
-    // TODO: Build an Endpoint to Add an Author with a JSON object via the POST method
+    // Build an Endpoint to Add an Author with a JSON object via the POST method
     @POST
     @Consumes("application/json")
     public void add(JsonObject author) {
         System.out.println(author);
         authors.add(author);
     }
-    // TODO: Build an Endpoint to Edit an Author by their ID with a JSON object via the PUT method
+    
+    // Build an Endpoint to Edit an Author by their ID with a JSON object via the PUT method
     @PUT
     @Path("{id}")
     @Consumes("application/json")
     public void edit(@PathParam("id") int id, JsonObject json) {
         authors.edit(id, json);
     }
-    // TODO: Build an Endpoint to Delete an Author by their ID via the DELETE method
+    
+    // Build an Endpoint to Delete an Author by their ID via the DELETE method
     @DELETE
     @Path("{id}")
     public void delete(@PathParam("id") int id) {

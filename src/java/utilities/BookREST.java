@@ -18,12 +18,15 @@ import models.Book;
 /**
  * The RESTful Service to Access Books
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
+
+//Corret context/scope
 @RequestScoped
 @Path("/books")
 public class BookREST {
-
+    
+    //Connetion to the book List
     @Inject
     BookController books;
 
@@ -32,6 +35,8 @@ public class BookREST {
      *
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to getAll() via the GET method
     @GET
     @Produces("application/json")
     public Response getAll() {
@@ -44,6 +49,8 @@ public class BookREST {
      * @param id the Book's ID
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to getByID() via the GET method and Conneting to Path
     @GET
     @Path("{id}")
     @Produces("application/json")
@@ -62,6 +69,8 @@ public class BookREST {
      * @param json the JSON Object of the Book
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to Add an Book with a JSON object via the POST method
     @POST
     @Consumes("application/json")
     @Produces("application/json")
@@ -76,6 +85,8 @@ public class BookREST {
      * @param json the JSON object of the changed Book
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to Edit an Author by their ID with a JSON object via the PUT method
     @PUT
     @Path("{id}")
     @Consumes("application/json")
@@ -95,6 +106,8 @@ public class BookREST {
      * @param id the ID of the existing book
      * @return the HTTP Response
      */
+    
+    // Build an Endpoint to Delete an Author by their ID via the DELETE method
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") int id) {

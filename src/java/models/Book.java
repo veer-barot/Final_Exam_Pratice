@@ -5,7 +5,7 @@ import javax.json.JsonObject;
 
 /**
  *
- * @author <ENTER YOUR NAME HERE>
+ * @author <Veer Barot>
  */
 public class Book {
 
